@@ -14,11 +14,9 @@ const bycrypt = require("bcrypt-nodejs"); // Instancia para encriptar datos.
  */
 const registro_colaborador_admin = async function (req, res) {
 
-    // Obtengo los datos enviados desde el formulario
+    if ( req.user) {
+        // Obtengo los datos enviados desde el formulario
     const data = req.body;
-    console.log(data);
-    
-    
         
     // Intento crear un nuevo Colaborador y chequeo si la contraseña se puede encriptar y si el email ya existe.
     try {
@@ -66,14 +64,17 @@ const registro_colaborador_admin = async function (req, res) {
     } catch (err) {
         res.status(200).send({data: undefined, message:"Verifique los campos del formulario." + err})
     }
+    } else {
+        res.status(403).send({data: undefined, message:"No token."})
+
+    }
 }
 
 const login_admin = async function (req, res) {
 
     // Obtengo los datos enviados desde el formulario
     let data = req.body;
-    console.log(data);
-
+    
     // Realizo una consulta sobre si un email se encuentra en la tabla colaborador.
     const colaborador_email = await Colaborador.findAll({where: {email:data.email}})
 
