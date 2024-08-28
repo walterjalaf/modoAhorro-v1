@@ -1,6 +1,7 @@
 
 //const {faker} = require("@faker-js/faker") --> solo se usa en las pruebas.
 
+const { col } = require('sequelize');
 var jwt =require('../helpers/jwt'); // instancia para crear tokens
 
 const Colaborador = require("../src/models/colaborador.model"); // instancia del modelo de la tabla Colaborador.
@@ -115,9 +116,22 @@ const login_admin = async function (req, res) {
     }
 }
 
+const listar_colaboradores = async function (req, res) {
+    if ( req.user) {
+        let colaboradores = await Colaborador.findAll();
+        res.status(200).send({
+            data: colaboradores
+        })
+        
+    }else {
+        res.status(403).send({data: undefined, message:"No token."})
+
+    }
+}
 
 module.exports = {
 
     registro_colaborador_admin,
-    login_admin
+    login_admin,
+    listar_colaboradores
 } 

@@ -9,9 +9,17 @@ const auth =require('../middlewares/authenticate')
 
 // Protocolo Http + path + lógica a realizar
 
+/*
+ *  POST
+ */
 app.post('/registro_colaborador_admin', auth.auth, colaboradorController.registro_colaborador_admin );
 app.post('/login_admin', colaboradorController.login_admin)
 
 
+/*
+ *  GET
+ */
+
+app.get('/listar_colaboradores', auth.auth, colaboradorController.listar_colaboradores);
 
 module.exports = app;
