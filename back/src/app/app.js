@@ -15,6 +15,8 @@ app.use(morgan("dev"))
 
 // Instancia de la ruta donde tengo mi http.
 const colaborador_routes = require("../../routes/colaborador")
+const empresa_routes = require('../../routes/empresa')
+const inventario = require('../../routes/inventario')
 
 /**
  * 
@@ -44,6 +46,9 @@ app.use(express.json())
  */
 
 app.use('/api', colaborador_routes);
+app.use('/api', empresa_routes);
+app.use('/api', inventario);
+
 
 
 module.exports = app;
