@@ -57,9 +57,31 @@ const listar_empresas = async function (req, res) {
    
 }
 
+const eliminar_empresa  = async function (req, res) {
+
+    let data = req.body;
+    let id = req.params['id'];
+    console.log({id});
+    
+
+    // let empresas = await Empresa.destroy({
+    //     where: {
+    //         empresa_id: data.empresa_id
+    //     }
+    // });
+    // res.status(200).send({
+    //     data: empresas
+    // })
+    // console.log(empresas);
+
+    
+}
+
+
 module.exports = {
 
     crear_empresa,
     listar_empresas,
+    eliminar_empresa
 
 } 

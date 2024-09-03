@@ -22,4 +22,13 @@ app.post('/crear_empresa', auth.auth, empresaController.crear_empresa );
 
 app.get('/listar_empresas',  empresaController.listar_empresas);
 
+
+/**
+ * 
+ * DELETE
+ * 
+ */
+
+app.delete('/eliminar_empresa', empresaController.eliminar_empresa);
+
 module.exports = app;

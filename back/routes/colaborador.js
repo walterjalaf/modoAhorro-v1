@@ -21,5 +21,14 @@ app.post('/login_admin', colaboradorController.login_admin)
  */
 
 app.get('/listar_colaboradores', auth.auth, colaboradorController.listar_colaboradores);
+app.get('/obtener_datos_colaborador_admin/:id', auth.auth, colaboradorController.obtener_datos_colaborador_admin)
+
+/**
+ * UPDATE
+ * 
+ */
+
+app.put('/cambiar_estado_colaborador_admin/:id', auth.auth, colaboradorController.cambiar_estado_colaborador_admin);
+app.put('/actualizar_colaborador_admin/:id', auth.auth, colaboradorController.actualizar_colaborador_admin);
 
 module.exports = app;

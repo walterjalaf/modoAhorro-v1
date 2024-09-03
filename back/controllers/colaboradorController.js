@@ -128,10 +128,100 @@ const listar_colaboradores = async function (req, res) {
 
     }
 }
+const cambiar_estado_colaborador_admin = async function (req, res) {
+    if ( req.user) {
+
+        let id = req.params['id'];
+        let data = req.body;
+        let nuevo_estado = true;
+
+        if (data.estado) {
+            nuevo_estado = false;
+
+        } else if (!data.estado){
+
+            nuevo_estado = true;
+
+        }
+
+        let colaborador = await Colaborador.update({
+            estado: nuevo_estado
+        },{
+            where: {
+                colaborador_id: id
+            }
+        });
+
+        res.status(200).send({
+            data: colaborador
+        })
+    }else {
+        res.status(403).send({data: undefined, message:"No se údo actualizar el colaborador."})
+
+    }
+}
+const obtener_datos_colaborador_admin = async function (req, res) {
+    if ( req.user) {
+
+        let id = req.params['id'];
+
+        try {
+            let colaborador = await Colaborador.findByPk(id)
+
+        res.status(200).send({
+            data: colaborador
+        })
+            
+        } catch (error) {
+            res.status(200).send({
+                data: undefined
+            })
+            
+        }
+        
+    }else {
+        res.status(403).send({data: undefined, message:"No se pudo actualizar el colaborador."})
+
+    }
+}
+
+const actualizar_colaborador_admin = async function (req, res) {
+
+    if ( req.user) {
+
+        // Obtengo el id del colaborador a actualizar.
+        let id = req.params['id'];
+        // Obtengo los datos enviados desde el formulario
+        let data = req.body;
+
+        let colaborador = await Colaborador.update({
+            colaborador_nombre: data.colaborador_nombre,
+            email: data.email,
+            estado: data.estado
+        },{
+            where: {
+                colaborador_id: id
+            }
+        });
+
+        res.status(200).send({
+            data: colaborador
+        })
+        
+        
+        
+    } else {
+        res.status(403).send({data: undefined, message:"No token."})
+
+    }
+}
 
 module.exports = {
 
     registro_colaborador_admin,
     login_admin,
-    listar_colaboradores
+    listar_colaboradores,
+    cambiar_estado_colaborador_admin,
+    obtener_datos_colaborador_admin,
+    actualizar_colaborador_admin
 } 
