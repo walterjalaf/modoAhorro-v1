@@ -17,6 +17,7 @@ app.use(morgan("dev"))
 const colaborador_routes = require("../../routes/colaborador")
 const empresa_routes = require('../../routes/empresa')
 const inventario = require('../../routes/inventario')
+const gestor_routes = require('../../routes/gestor')
 
 /**
  * 
@@ -48,6 +49,7 @@ app.use(express.json())
 app.use('/api', colaborador_routes);
 app.use('/api', empresa_routes);
 app.use('/api', inventario);
+app.use('/api', gestor_routes);
 
 
 
