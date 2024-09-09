@@ -27,7 +27,7 @@ Gestor.init({
         allowNull: false 
     },
     cuit: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     }
     ,

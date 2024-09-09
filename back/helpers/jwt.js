@@ -4,9 +4,8 @@ var secret = "walter13.08"
 
 exports.createToken = function (user) {
     const payload = {
-        sub: user.colaborador_id,
-        colaborador_nombre: user.colaborador_nombre,
-        estado: user.estado,
+        sub: user.gestor_id,
+        gestor_nombre: user.gestor_nombre,
         email: user.email,
         iat: moment().unix(),
         exp: moment().add(1, 'day').unix(),

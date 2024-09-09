@@ -75,38 +75,34 @@ const login_gestor = async function (req, res) {
 
     // Obtengo los datos enviados desde el formulario
     let data = req.body;
+    console.log({data});
     
-    // Realizo una consulta sobre si un email se encuentra en la tabla gestor.
+    
+    //Realizo una consulta sobre si un email se encuentra en la tabla gestor.
     const gestor_email = await Gestor.findAll({where: {email:data.email}})
 
-    // Verifico que el email se encuentra en la mi base de datos
+    //Verifico que el email se encuentra en la mi base de datos
     if (gestor_email.length >=1){
         
-        if (gestor_email[0].estado){ // si el estado es true es porque tiene acceso a la plataforma
-            bycrypt.compare(
-                data.password,
-                gestor_email[0].password,
-                async function (err, check) {
-    
-                if (check){
-                    // Si el email y la contraseña son correctos se crea el token.
-                    res.status(200).send({
-                        data: gestor_email[0],
-                        token: jwt.createToken(gestor_email[0])})
-                }else{
-    
-                    res.status(200).send({
-                        data:undefined,
-                        message: "La contraseña no existe."})
-                }
-            })    
-        }else {
+        // si el estado es true es porque tiene acceso a la plataforma
+        bycrypt.compare(
+            data.password,
+            gestor_email[0].password,
+            async function (err, check) {
 
-            res.status(200).send({
-                data:undefined,
-                message: "Ya no tienes acceso al panel."})
+            if (check){
+                // Si el email y la contraseña son correctos se crea el token.
+                res.status(200).send({
+                    data: gestor_email[0],
+                    token: jwt.createToken(gestor_email[0])})
+            }else{
 
-        }
+                res.status(200).send({
+                    data:undefined,
+                    message: "La contraseña no existe."})
+            }
+        })    
+        
         
     } else {
 
